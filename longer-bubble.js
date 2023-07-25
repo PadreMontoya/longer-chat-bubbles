@@ -53,7 +53,7 @@ class LongerChatBubbles extends ChatBubbles {
     let timeMin = game.settings.get("longer-chat-bubbles", "bubbleMinTime");
     let timeMax = game.settings.get("longer-chat-bubbles", "bubbleMaxTime");
 
-    return Math.clamped(timeMin * 1000, ms, timeMax * 1000);
+    return Math.clamped(ms, timeMin * 1000, timeMax * 1000);
   }
 
 }
