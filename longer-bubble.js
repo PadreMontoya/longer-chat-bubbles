@@ -2,6 +2,17 @@
 Hooks.once('init', () => {
     console.log("Loaded Longer Chat Bubbles");
 
+	game.settings.register("longer-chat-bubbles", "bubbleScaling", {
+		name: "Scale chat bubbles based on map size",
+		hint: "Chat bubbles may appear tiny on huge maps.  This option will attempt to compensate.",
+		default: true,
+		type: Boolean,
+		config: true,
+		onChange: () => {
+          canvas.hud.bubbles = new LongerChatBubbles()
+      }
+	});
+    
     game.settings.register("longer-chat-bubbles", "bubbleMinTime", {
       name: "Min Time",
       hint: "Minimum amount of time in seconds for the chat bubble",
@@ -52,6 +63,11 @@ class LongerChatBubbles extends ChatBubbles {
     const ms = (words * 60 * 1000) / 300;
     let timeMin = game.settings.get("longer-chat-bubbles", "bubbleMinTime");
     let timeMax = game.settings.get("longer-chat-bubbles", "bubbleMaxTime");
+    let scalingEnabled = game.settings.get("longer-chat-bubbles", "bubbleScaling");
+
+    if (scalingEnabled) {
+      $(html).css('transform','scale(' + (canvas.scene.grid.size / 100) + ')')
+    }
 
     return Math.clamped(ms, timeMin * 1000, timeMax * 1000);
   }
