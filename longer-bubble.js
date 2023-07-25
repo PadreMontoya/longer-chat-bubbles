@@ -2,16 +2,17 @@
 Hooks.once('init', () => {
     console.log("Loaded Longer Chat Bubbles");
 
-	game.settings.register("longer-chat-bubbles", "bubbleScaling", {
-		name: "Scale chat bubbles based on map size",
-		hint: "Chat bubbles may appear tiny on huge maps.  This option will attempt to compensate.",
-		default: true,
-		type: Boolean,
-		config: true,
-		onChange: () => {
+    game.settings.register("longer-chat-bubbles", "bubbleScaling", {
+	name: "Scale chat bubbles based on map size",
+	hint: "Chat bubbles may appear tiny on huge maps.  This option will attempt to compensate.",
+        scope: "client",
+	default: false,
+	type: Boolean,
+	config: true,
+	onChange: () => {
           canvas.hud.bubbles = new LongerChatBubbles()
       }
-	});
+    });
     
     game.settings.register("longer-chat-bubbles", "bubbleMinTime", {
       name: "Min Time",
